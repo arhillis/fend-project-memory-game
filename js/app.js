@@ -1,8 +1,25 @@
 /*
  * Create a list that holds all of your cards
  */
-
- let cards = document.getElementsByClassName("card");
+ let cards = [
+    "fa-diamond",
+    "fa-paper-plane-o",
+    "fa-anchor",
+    "fa-bolt",
+    "fa-cube",
+    "fa-leaf",
+    "fa-bicycle",
+    "fa-bomb",
+    "fa-diamond",
+    "fa-paper-plane-o",
+    "fa-anchor",
+    "fa-bolt",
+    "fa-cube",
+    "fa-leaf",
+    "fa-bicycle",
+    "fa-bomb"
+ ];
+ 
 
 /*
  * Display the cards on the page
@@ -39,18 +56,30 @@ function shuffle(array) {
  */
 
  window.onload = function(){
+    shuffle(cards);
+    const deck = document.querySelector(".deck");
+
+    cardHTML = ``;
+    for(let card of cards){
+        cardHTML += ` <li class="card">
+                                <i class="fa ${card}"></i>
+                            </li>`
+    }
+
+    deck.innerHTML = cardHTML;
+
+    cardEls = document.querySelectorAll(".card");
 
     let firstCard = null;
     
-    for(card of cards){
+    for(card of cardEls){
         card.onclick = function(){
-            this.classList.toggle("face-up");
-            console.log(this.children[0].classList[1]);
+            this.classList.toggle("face-up");            
         }
     }
 
     document.querySelector(".restart").onclick = function(){
-        for(let card of cards){
+        for(let card of cardEls){
             card.classList.remove("face-up");
         }
     };
