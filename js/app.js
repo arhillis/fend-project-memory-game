@@ -101,8 +101,6 @@ window.onload = function () {
                             secondCard = "";
                         }, 1000);
                     }
-
-
                 }else{
                     console.log("pick another card");
                 }
@@ -114,6 +112,7 @@ window.onload = function () {
     document.querySelector(".restart").onclick = function () {
         for (let card of cardEls) {
             card.classList.remove("face-up");
+            
         }
     };
 };
