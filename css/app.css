@@ -75,7 +75,7 @@ h1 {
     font-size: 33px;
 }
 
-.deck .card.match {
+.deck .card.face-up {
     cursor: default;
     background: #02ccba;
     font-size: 33px;
