@@ -2,6 +2,9 @@
  * Create a list that holds all of your cards
  */
 
+ let cards = document.getElementsByClassName("card");
+
+ let firstCard = cards[0];
 
 /*
  * Display the cards on the page
@@ -36,3 +39,11 @@ function shuffle(array) {
  *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
+
+ window.onload = function(){
+    for(card of cards){
+        card.onclick = function(){
+            this.classList.toggle("face-up");
+        }
+    }
+ };
