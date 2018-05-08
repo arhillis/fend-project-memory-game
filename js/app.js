@@ -1,7 +1,7 @@
 /*
  * Create a list that holds all of your cards
  */
- let cards = [
+let cards = [
     "fa-diamond",
     "fa-paper-plane-o",
     "fa-anchor",
@@ -18,8 +18,8 @@
     "fa-leaf",
     "fa-bicycle",
     "fa-bomb"
- ];
- 
+];
+
 
 /*
  * Display the cards on the page
@@ -30,7 +30,8 @@
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
-    var currentIndex = array.length, temporaryValue, randomIndex;
+    var currentIndex = array.length,
+        temporaryValue, randomIndex;
 
     while (currentIndex !== 0) {
         randomIndex = Math.floor(Math.random() * currentIndex);
@@ -55,12 +56,12 @@ function shuffle(array) {
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
 
- window.onload = function(){
+window.onload = function () {
     shuffle(cards);
     const deck = document.querySelector(".deck");
 
     cardHTML = ``;
-    for(let card of cards){
+    for (let card of cards) {
         cardHTML += ` <li class="card">
                                 <i class="fa ${card}"></i>
                             </li>`
@@ -70,17 +71,49 @@ function shuffle(array) {
 
     cardEls = document.querySelectorAll(".card");
 
-    let firstCard = null;
-    
-    for(card of cardEls){
-        card.onclick = function(){
-            this.classList.toggle("face-up");            
+    let firstCard = "";
+    let secondCard = "";
+
+    for (card of cardEls) {
+        card.onclick = function () {
+            if(!this.classList.contains("face-up")){
+                this.classList.add("face-up");
+
+                if (!firstCard) {
+                    firstCard = this;
+                } else if (!secondCard) {                
+                    secondCard = this;
+                }
+
+                if(firstCard !== "" && secondCard !== ""){
+                    console.log("two cards up!");
+
+                    if(firstCard.children[0].classList[1] === secondCard.children[0].classList[1]){
+                        console.log("match!");
+                        firstCard = "";
+                        secondCard = "";
+                    }else{
+                        setTimeout(function(){
+                            firstCard.classList.remove("face-up");
+                            secondCard.classList.remove("face-up");
+                            console.log("try again");
+                            firstCard = "";
+                            secondCard = "";
+                        }, 1000);
+                    }
+
+
+                }else{
+                    console.log("pick another card");
+                }
+            }
+            
         }
     }
 
-    document.querySelector(".restart").onclick = function(){
-        for(let card of cardEls){
+    document.querySelector(".restart").onclick = function () {
+        for (let card of cardEls) {
             card.classList.remove("face-up");
         }
     };
- };
+};
