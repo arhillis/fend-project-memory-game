@@ -4,8 +4,6 @@
 
  let cards = document.getElementsByClassName("card");
 
- let firstCard = cards[0];
-
 /*
  * Display the cards on the page
  *   - shuffle the list of cards using the provided "shuffle" method below
@@ -41,9 +39,19 @@ function shuffle(array) {
  */
 
  window.onload = function(){
+
+    let firstCard = null;
+    
     for(card of cards){
         card.onclick = function(){
             this.classList.toggle("face-up");
+            console.log(this.children[0].classList[1]);
         }
     }
+
+    document.querySelector(".restart").onclick = function(){
+        for(let card of cards){
+            card.classList.remove("face-up");
+        }
+    };
  };
