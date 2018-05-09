@@ -15,35 +15,8 @@
 
 
 function newGame(){
-    const deck = document.querySelector(".deck");
-    let cards = [
-        "fa-diamond",
-        "fa-paper-plane-o",
-        "fa-anchor",
-        "fa-bolt",
-        "fa-cube",
-        "fa-leaf",
-        "fa-bicycle",
-        "fa-bomb",
-        "fa-diamond",
-        "fa-paper-plane-o",
-        "fa-anchor",
-        "fa-bolt",
-        "fa-cube",
-        "fa-leaf",
-        "fa-bicycle",
-        "fa-bomb"
-    ];
 
-    shuffle(cards);
-    
-    cardHTML = ``;
-    for (let card of cards) {
-        cardHTML += ` <li class="card">
-                                <i class="fa ${card}"></i>
-                            </li>`
-    }
-    deck.innerHTML = cardHTML;
+    layOutCards();
 
     let cardEls = document.querySelectorAll(".card");    
 
@@ -72,17 +45,46 @@ function newGame(){
                             firstCard = "";
                             secondCard = "";
                             
-                        }, 1000);
+                        }, 750);
                     }
 
                 }
             }
             
         }
-    } 
+    }  
     
-    function checkMatch(firstCard, secondCard){
-        return firstCard.children[0].classList[1] === secondCard.children[0].classList[1];
+    function layOutCards(){
+        const deck = document.querySelector(".deck");
+        let cards = [
+            "fa-diamond",
+            "fa-paper-plane-o",
+            "fa-anchor",
+            "fa-bolt",
+            "fa-cube",
+            "fa-leaf",
+            "fa-bicycle",
+            "fa-bomb",
+            "fa-diamond",
+            "fa-paper-plane-o",
+            "fa-anchor",
+            "fa-bolt",
+            "fa-cube",
+            "fa-leaf",
+            "fa-bicycle",
+            "fa-bomb"
+        ];
+    
+        shuffle(cards);
+        
+        cardHTML = ``;
+        for (let card of cards) {
+            cardHTML += ` <li class="card">
+                                    <i class="fa ${card}"></i>
+                                </li>`;
+        }
+        deck.innerHTML = cardHTML;
+
     }
 
     function shuffle(array) {
@@ -98,6 +100,10 @@ function newGame(){
         }
     
         return array;
+    }  
+
+    function checkMatch(firstCard, secondCard){
+        return firstCard.children[0].classList[1] === secondCard.children[0].classList[1];
     }
 }
 
