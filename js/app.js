@@ -86,23 +86,19 @@ window.onload = function () {
                 }
 
                 if(firstCard !== "" && secondCard !== ""){
-                    console.log("two cards up!");
-
-                    if(firstCard.children[0].classList[1] === secondCard.children[0].classList[1]){
-                        console.log("match!");
+                    if(checkMatch(firstCard, secondCard)){
                         firstCard = "";
                         secondCard = "";
                     }else{
                         setTimeout(function(){
                             firstCard.classList.remove("face-up");
                             secondCard.classList.remove("face-up");
-                            console.log("try again");
                             firstCard = "";
                             secondCard = "";
+                            
                         }, 1000);
                     }
-                }else{
-                    console.log("pick another card");
+
                 }
             }
             
@@ -112,7 +108,11 @@ window.onload = function () {
     document.querySelector(".restart").onclick = function () {
         for (let card of cardEls) {
             card.classList.remove("face-up");
-            
+
         }
     };
+
+    function checkMatch(firstCard, secondCard){
+        return firstCard.children[0].classList[1] === secondCard.children[0].classList[1];
+    }
 };
