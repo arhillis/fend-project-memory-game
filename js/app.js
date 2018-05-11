@@ -22,6 +22,7 @@ function newGame(){
 
     let firstCard = "";
     let secondCard = "";
+    let moves = 0;
 
     for (card of cardEls) {
         card.onclick = function () {
@@ -37,17 +38,18 @@ function newGame(){
                 if(firstCard !== "" && secondCard !== ""){
                     if(checkMatch(firstCard, secondCard)){
                         firstCard = "";
-                        secondCard = "";
-                    }else{
+                        secondCard = "";                
+                    }else{                        
                         setTimeout(function(){
                             firstCard.classList.remove("face-up");
                             secondCard.classList.remove("face-up");
                             firstCard = "";
                             secondCard = "";
                             
-                        }, 750);
+                        }, 1000);
                     }
-
+                    moves++;
+                    console.log("Move #" + moves.toString());
                 }
             }
             
