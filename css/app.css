@@ -83,14 +83,23 @@ h1 {
 
 .score-panel {
     text-align: left;
-    width: 345px;
+    width: 75%;
+    max-width: 640px;
     margin-bottom: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    font-size: 24px;
+}
+
+.moves-para{
+    margin: 0;
 }
 
 .score-panel .stars {
     margin: 0;
     padding: 0;
-    display: inline-block;
+    display: flex;
     margin: 0 5px 0 0;
 }
 
@@ -100,12 +109,35 @@ h1 {
 }
 
 .score-panel .restart {
-    float: right;
     cursor: pointer;
 }
 
-@media screen and (max-width: 400px){
-    .fa{
+.fa-star {
+    margin: 5px;
+}
+
+.fa-repeat {
+    font-size: 48px;
+}
+
+@media screen and (max-width: 400px) {
+    .deck .fa {
         font-size: 0.5em;
     }
+
+    .score-panel .stars, .restart {
+        flex-basis: 100%;
+        display: flex;
+        justify-content: center;
+    }
+
+    .timer, .moves-para {
+        flex-basis: 50%;
+    }
+
+    .timer {
+        display: flex;
+        justify-content: flex-end;
+    }
+
 }
