@@ -103,3 +103,9 @@ h1 {
     float: right;
     cursor: pointer;
 }
+
+@media screen and (max-width: 400px){
+    .fa{
+        font-size: 0.5em;
+    }
+}
