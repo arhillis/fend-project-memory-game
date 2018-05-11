@@ -77,6 +77,10 @@ h1 {
     font-size: 33px;
 }
 
+.deck .card.matched{
+    background: #aa7ecd;
+}
+
 /*
  * Styles for the Score Panel
  */

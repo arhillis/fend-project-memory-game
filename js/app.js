@@ -19,6 +19,7 @@ function newGame(){
     layOutCards();
 
     let cardEls = document.querySelectorAll(".card");    
+    const movesEl = document.querySelector(".moves");
 
     let firstCard = "";
     let secondCard = "";
@@ -36,9 +37,11 @@ function newGame(){
                 }
 
                 if(firstCard !== "" && secondCard !== ""){
-                    if(checkMatch(firstCard, secondCard)){
+                    if(checkMatch(firstCard, secondCard)){    
+                        firstCard.classList.add("matched"); 
+                        secondCard.classList.add("matched"); 
                         firstCard = "";
-                        secondCard = "";                
+                        secondCard = "";      
                     }else{                        
                         setTimeout(function(){
                             firstCard.classList.remove("face-up");
@@ -49,7 +52,7 @@ function newGame(){
                         }, 1000);
                     }
                     moves++;
-                    console.log("Move #" + moves.toString());
+                    movesEl.textContent = moves.toString();
                 }
             }
             
