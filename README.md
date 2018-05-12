@@ -17,11 +17,11 @@ For specific, detailed instructions, look at the project instructions in the [Ud
 ## Todo 
 ### (Personal Deadline: May 21)
 
-* Responsiveness (Personal Deadline: May 11)
+* Responsiveness (Personal Deadline: May 11 - **Done!**)
 
     _"All application components are usable across modern desktop, tablet, and phone browsers. "_
 
-* Move Counter (Personal Deadline: May 12)
+* Move Counter (Personal Deadline: May 12 - **Done!**)
 
     _"Game displays the current number of moves a user has made. "_
 
