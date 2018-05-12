@@ -24,6 +24,7 @@ function newGame(){
     let firstCard = "";
     let secondCard = "";
     let moves = 0;
+    movesEl.textContent = moves.toString();
 
     for (card of cardEls) {
         card.onclick = function () {
