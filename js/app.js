@@ -21,39 +21,40 @@ function newGame(){
     let cardEls = document.querySelectorAll(".card");    
     const movesEl = document.querySelector(".moves");
 
-    let firstCard = "";
-    let secondCard = "";
+    let faceUpCards = [];
+
     let moves = 0;
-    movesEl.textContent = moves.toString();
+
 
     for (card of cardEls) {
         card.onclick = function () {
             if(!this.classList.contains("face-up")){
                 this.classList.add("face-up");
+                faceUpCards.push(this);
 
-                if (!firstCard) {
-                    firstCard = this;
-                } else if (!secondCard) {                
-                    secondCard = this;
+                if(faceUpCards.length === 2){
+
+                    window.setTimeout(function(){
+                        endTurn(faceUpCards[0], faceUpCards[1]);
+                    }, 1000);
                 }
 
-                if(firstCard !== "" && secondCard !== ""){
-                    if(checkMatch(firstCard, secondCard)){    
-                        firstCard.classList.add("matched"); 
-                        secondCard.classList.add("matched"); 
-                        firstCard = "";
-                        secondCard = "";      
-                    }else{                        
-                        setTimeout(function(){
-                            firstCard.classList.remove("face-up");
-                            secondCard.classList.remove("face-up");
-                            firstCard = "";
-                            secondCard = "";
-                            
-                        }, 1000);
+                function endTurn(card1, card2){
+                    let match = checkMatch(card1, card2);
+
+                    if(match){
+                        card1.classList.add("matched");
+                        card2.classList.add("matched");
+                    }else{
+                        card1.classList.remove("face-up");
+                        card2.classList.remove("face-up");
                     }
+
                     moves++;
-                    movesEl.textContent = moves.toString();
+                    movesEl.textContent = moves.toString();                    
+                    faceUpCards = [];
+
+                    
                 }
             }
             
