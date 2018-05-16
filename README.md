@@ -5,6 +5,7 @@
 * [Instructions](#instructions)
 * [Todo List](#todo)
 * [Functions](#functions)
+* [Issues](#issues)
 
 ## Instructions
 
@@ -25,7 +26,7 @@ For specific, detailed instructions, look at the project instructions in the [Ud
 
     _"Game displays the current number of moves a user has made. "_
 
-* Timer (Personal Deadline: May 15)
+* Timer (Personal Deadline: May 15 **Done!**)
 
     _"When the player starts a game, a displayed timer should also start. Once the player wins the game, the timer stops."_
 
@@ -38,14 +39,6 @@ For specific, detailed instructions, look at the project instructions in the [Ud
     _"When a user wins the game, a modal appears to congratulate the player and ask if they want to play again. It should also tell the user how much time it took to win the game, and what the star rating was."_
 
 
-
-
-
-
-
-
-
-
 ## Functions
 
 Here are the following functions that I have written as part of my function:
@@ -53,3 +46,12 @@ Here are the following functions that I have written as part of my function:
 ### newGame()
 
 This function does exactly what it says it does: starts a new game. 
+
+### layOutCards()
+
+This function takes the ```cards``` array and randomizes it with the given ``shuffle`` function. It then creates an HTML string (cardHTML), adding list items to it for each item in the array. It then sets the ``deck``'s innter HTML to be this string.
+
+## Issues
+
+* When the user finishes a game and it restarts, the cards do not shuffle. I am still having trouble fixing this.
+
