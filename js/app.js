@@ -149,7 +149,7 @@ function layOutCards(){
 
     cardHTML = ``;
     for (let card of cards) {
-        cardHTML += ` <li class="card face-up">
+        cardHTML += ` <li class="card">
                                 <i class="fa ${card}"></i>
                             </li>`;
     }
@@ -182,31 +182,44 @@ function layOutCards(){
 
 }//End layOutCards
 
-function checkMatch(firstCard, secondCard) {
-        return firstCard.children[0].classList[1] === secondCard.children[0].classList[1];
-}
+
 
 function flipCard(card){
+    card.classList.add("face-up");
+
     if(faceUpCards.length < 2){
         faceUpCards.push(card);
     }    
-    console.log(faceUpCards);
+
     if(faceUpCards.length === 2){
         let firstCard = faceUpCards[0];
         let secondCard = faceUpCards[1];
         faceUpCards = [];
 
-        if(checkMatch(firstCard, secondCard)){
-            firstCard.classList.add("matched");
-            secondCard.classList.add("matched");
-        }
+        window.setTimeout(function(){
+            if(checkMatch(firstCard, secondCard)){
+                firstCard.classList.add("matched");
+                secondCard.classList.add("matched");
+            }else{
+                firstCard.classList.remove("face-up");
+                secondCard.classList.remove("face-up");
+            }
 
-        if(document.getElementsByClassName("matched").length === 16){
-            window.setTimeout(function(){
-                layOutCards();
-            }, 1000);
-           
-        }
+            if(document.getElementsByClassName("matched").length === 16){
+                window.setTimeout(function(){
+                    endGame();
+                }, 1000);
+            }
+        }, 1000);
+    }
+
+    function checkMatch(firstCard, secondCard) {
+        return firstCard.children[0].classList[1] === secondCard.children[0].classList[1];
+    }
+
+    function endGame(){
+        alert("matched!");
+        layOutCards();
     }
 }
 
