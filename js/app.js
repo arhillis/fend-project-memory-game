@@ -1,7 +1,25 @@
 /*
  * Create a list that holds all of your cards
  */
-
+const deck = document.querySelector(".deck");
+const cards = [
+        "fa-diamond",
+        "fa-paper-plane-o",
+        "fa-anchor",
+        "fa-bolt",
+        "fa-cube",
+        "fa-leaf",
+        "fa-bicycle",
+        "fa-bomb",
+        "fa-diamond",
+        "fa-paper-plane-o",
+        "fa-anchor",
+        "fa-bolt",
+        "fa-cube",
+        "fa-leaf",
+        "fa-bicycle",
+        "fa-bomb"
+    ];
 
 
 /*
@@ -14,6 +32,10 @@
 // Shuffle function from http://stackoverflow.com/a/2450976
 
 
+
+
+
+/*
 function newGame() {
 
     layOutCards();
@@ -30,52 +52,7 @@ function newGame() {
 
     let timer;
 
-    for (card of cardEls) {
-        card.onclick = function () {
-
-            if (!playing) {
-                playing = true;
-
-                timer = window.setInterval(function () {
-                    clockTick();
-                }, 1000)
-
-            }
-
-            if (!this.classList.contains("face-up")) {
-                this.classList.add("face-up");
-                faceUpCards.push(this);
-
-                if (faceUpCards.length === 2) {
-
-                    window.setTimeout(function () {
-                        endTurn(faceUpCards[0], faceUpCards[1]);
-                    }, 1000);
-                }
-
-                function endTurn(card1, card2) {
-                    let match = checkMatch(card1, card2);
-
-                    if (match) {
-                        card1.classList.add("matched");
-                        card2.classList.add("matched");
-                    } else {
-                        card1.classList.remove("face-up");
-                        card2.classList.remove("face-up");
-                    }
-
-                    moves++;
-                    movesEl.textContent = moves.toString();
-                    faceUpCards = [];
-
-                    if (document.querySelectorAll(".matched").length == 16) {
-                        resetGame();
-                    }
-
-                }
-            }
-
-        }
+   
 
         function clockTick() {
 
@@ -96,53 +73,8 @@ function newGame() {
         }
     }
 
-    function layOutCards() {
-        const deck = document.querySelector(".deck");
-        let cards = [
-            "fa-diamond",
-            "fa-paper-plane-o",
-            "fa-anchor",
-            "fa-bolt",
-            "fa-cube",
-            "fa-leaf",
-            "fa-bicycle",
-            "fa-bomb",
-            "fa-diamond",
-            "fa-paper-plane-o",
-            "fa-anchor",
-            "fa-bolt",
-            "fa-cube",
-            "fa-leaf",
-            "fa-bicycle",
-            "fa-bomb"
-        ];
+    
 
-        shuffle(cards);
-
-        cardHTML = ``;
-        for (let card of cards) {
-            cardHTML += ` <li class="card">
-                                    <i class="fa ${card}"></i>
-                                </li>`;
-        }
-        deck.innerHTML = cardHTML;
-
-    }
-
-    function shuffle(array) {
-        var currentIndex = array.length,
-            temporaryValue, randomIndex;
-
-        while (currentIndex !== 0) {
-            randomIndex = Math.floor(Math.random() * currentIndex);
-            currentIndex -= 1;
-            temporaryValue = array[currentIndex];
-            array[currentIndex] = array[randomIndex];
-            array[randomIndex] = temporaryValue;
-        }
-
-        return array;
-    }
 
     function checkMatch(firstCard, secondCard) {
         return firstCard.children[0].classList[1] === secondCard.children[0].classList[1];
@@ -156,12 +88,102 @@ function newGame() {
         secEl.textContent = "00";
         movesEl.textContent = "0";
         moves = 0;
-        cardEls.forEach(function (card) {
-            card.classList.remove("matched");
-            card.classList.remove("face-up");
-        })
+        layOutCards();
+   }
+
+
+function layOutCards() {
+    
+
+    shuffle(cards);
+
+    
+    cardEls = document.querySelectorAll("card");
+
+    for (card of cardEls) {
+        card.onclick = function () {
+
+            if (!playing) {
+                playing = true;
+
+                timer = window.setInterval(function () {
+                    clockTick();
+                }, 1000)
+
+            }
+            
+                faceUpCards.push(this);
+
+                if (faceUpCards.length === 2) {
+
+                    window.setTimeout(function () {
+                        endTurn(faceUpCards[0], faceUpCards[1]);
+                    }, 1000);
+                }
+
+                function endTurn(card1, card2) {
+                    let match = checkMatch(card1, card2);
+
+                    if (match) {
+                        card1.classList.add("matched");
+                        card2.classList.add("matched");
+                    } 
+
+                    moves++;
+                    movesEl.textContent = moves.toString();
+                    faceUpCards = [];
+
+                    if (document.querySelectorAll(".matched").length == 16) {
+                        resetGame();
+                    }
+                
+            }
+
+        }
     }
+
 }
+
+*/
+
+function layOutCards(){
+    shuffle(cards);
+
+    cardHTML = ``;
+    for (let card of cards) {
+        cardHTML += ` <li class="card face-up">
+                                <i class="fa ${card}"></i>
+                            </li>`;
+    }
+    deck.innerHTML = cardHTML;
+
+    const cardEls = document.querySelectorAll(".card");
+
+    cardEls.forEach(function(card){
+        card.onclick = function(){
+
+            this.classList.add("matched");
+        }
+        
+    })
+    
+    function shuffle(array) {
+        var currentIndex = array.length,
+            temporaryValue, randomIndex;
+    
+        while (currentIndex !== 0) {
+            randomIndex = Math.floor(Math.random() * currentIndex);
+            currentIndex -= 1;
+            temporaryValue = array[currentIndex];
+            array[currentIndex] = array[randomIndex];
+            array[randomIndex] = temporaryValue;
+        }
+    
+        return array;
+    }//end shuffle
+
+}//End layOutCards
+
 
 /*
  * set up the event listener for a card. If a card is clicked:
@@ -176,10 +198,12 @@ function newGame() {
 
 window.onload = function () {
 
-    newGame();
+   layOutCards();
+  
+   
 
     document.querySelector(".restart").onclick = function () {
-        newGame();
+        layOutCards();
     };
 
 
