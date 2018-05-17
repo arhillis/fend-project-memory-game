@@ -21,7 +21,7 @@ const cards = [
         "fa-bomb"
     ];
 
-
+let faceUpCards = [];
 /*
  * Display the cards on the page
  *   - shuffle the list of cards using the provided "shuffle" method below
@@ -76,9 +76,7 @@ function newGame() {
     
 
 
-    function checkMatch(firstCard, secondCard) {
-        return firstCard.children[0].classList[1] === secondCard.children[0].classList[1];
-    }
+    
 
     function resetGame() {
         alert("matched!");
@@ -161,10 +159,10 @@ function layOutCards(){
 
     cardEls.forEach(function(card){
         card.onclick = function(){
-
-            this.classList.add("matched");
-        }
-        
+            if(!this.classList.contains("matched")){//change back to 'face-up' later
+                flipCard(this);
+            }
+        }        
     })
     
     function shuffle(array) {
@@ -180,9 +178,37 @@ function layOutCards(){
         }
     
         return array;
-    }//end shuffle
+    }//end shuffle    
 
 }//End layOutCards
+
+function checkMatch(firstCard, secondCard) {
+        return firstCard.children[0].classList[1] === secondCard.children[0].classList[1];
+}
+
+function flipCard(card){
+    if(faceUpCards.length < 2){
+        faceUpCards.push(card);
+    }    
+    console.log(faceUpCards);
+    if(faceUpCards.length === 2){
+        let firstCard = faceUpCards[0];
+        let secondCard = faceUpCards[1];
+        faceUpCards = [];
+
+        if(checkMatch(firstCard, secondCard)){
+            firstCard.classList.add("matched");
+            secondCard.classList.add("matched");
+        }
+
+        if(document.getElementsByClassName("matched").length === 16){
+            window.setTimeout(function(){
+                layOutCards();
+            }, 1000);
+           
+        }
+    }
+}
 
 
 /*
