@@ -2,6 +2,7 @@
  * Create a list that holds all of your cards
  */
 const deck = document.querySelector(".deck");
+const movesEl = document.querySelector(".moves");
 const cards = [
         "fa-diamond",
         "fa-paper-plane-o",
@@ -22,6 +23,9 @@ const cards = [
     ];
 
 let faceUpCards = [];
+
+let moves = 0;
+
 /*
  * Display the cards on the page
  *   - shuffle the list of cards using the provided "shuffle" method below
@@ -37,16 +41,9 @@ let faceUpCards = [];
 
 /*
 function newGame() {
-
-    layOutCards();
-
     let cardEls = document.querySelectorAll(".card");
-    const movesEl = document.querySelector(".moves");
     const secEl = document.querySelector("#secs");
     const minEl = document.querySelector("#mins");
-
-    let faceUpCards = [];
-
     let moves = 0,
         playing = false;
 
@@ -65,82 +62,10 @@ function newGame() {
             } else {
                 increment(secs, secEl);
             }
-
-            function increment(num, element) {
-                num++;
-                element.textContent = (num < 10) ? "0" + num.toString() : num.toString();
-            }
-        }
-    }
-
-    
-
-
-    
-
-    function resetGame() {
-        alert("matched!");
-        playing = false;
-        window.clearInterval(timer);
-        minEl.textContent = "0";
-        secEl.textContent = "00";
-        movesEl.textContent = "0";
-        moves = 0;
-        layOutCards();
-   }
-
-
-function layOutCards() {
-    
-
-    shuffle(cards);
-
-    
-    cardEls = document.querySelectorAll("card");
-
-    for (card of cardEls) {
-        card.onclick = function () {
-
-            if (!playing) {
-                playing = true;
-
-                timer = window.setInterval(function () {
-                    clockTick();
-                }, 1000)
-
-            }
             
-                faceUpCards.push(this);
-
-                if (faceUpCards.length === 2) {
-
-                    window.setTimeout(function () {
-                        endTurn(faceUpCards[0], faceUpCards[1]);
-                    }, 1000);
-                }
-
-                function endTurn(card1, card2) {
-                    let match = checkMatch(card1, card2);
-
-                    if (match) {
-                        card1.classList.add("matched");
-                        card2.classList.add("matched");
-                    } 
-
-                    moves++;
-                    movesEl.textContent = moves.toString();
-                    faceUpCards = [];
-
-                    if (document.querySelectorAll(".matched").length == 16) {
-                        resetGame();
-                    }
-                
-            }
-
         }
     }
 
-}
 
 */
 
@@ -195,6 +120,7 @@ function flipCard(card){
         let firstCard = faceUpCards[0];
         let secondCard = faceUpCards[1];
         faceUpCards = [];
+        
 
         window.setTimeout(function(){
             if(checkMatch(firstCard, secondCard)){
@@ -209,8 +135,12 @@ function flipCard(card){
                 window.setTimeout(function(){
                     endGame();
                 }, 1000);
-            }
+            }            
         }, 1000);
+       
+        moves++;
+        movesEl.textContent = moves.toString();
+        
     }
 
     function checkMatch(firstCard, secondCard) {
@@ -219,8 +149,24 @@ function flipCard(card){
 
     function endGame(){
         alert("matched!");
+        moves = 0;
+        movesEl.textContent = "0";
+
+        /*
+        playing = false;
+        window.clearInterval(timer);
+        minEl.textContent = "0";
+        secEl.textContent = "00";*/
+
+
         layOutCards();
     }
+
+}
+
+function increment(num, element) {
+    num++;
+    element.textContent = (num < 10) ? "0" + num.toString() : num.toString();
 }
 
 
