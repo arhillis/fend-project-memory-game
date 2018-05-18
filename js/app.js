@@ -184,5 +184,5 @@ window.onload = function () {
 
    layOutCards();   
 
-    document.querySelector(".restart").onclick = layOutCards;
+    document.querySelector(".restart").onclick = newGame;
 };
