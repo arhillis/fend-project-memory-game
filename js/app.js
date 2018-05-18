@@ -26,7 +26,7 @@ const cards = [
 
 let faceUpCards = [];
 
-let moves = 0, secs = 0;
+let moves = 0, secs = 0, playing = false, timer;
 
 /*
  * Display the cards on the page
@@ -84,15 +84,20 @@ function layOutCards(){
         return array;
     }//end shuffle   
     
-    secs = 0;
+    
 
-    let timer = setInterval(clockTick, 1000);
 
 }//End layOutCards
 
 
 
 function flipCard(card){
+
+    if(!playing){
+        playing = true;
+        timer = setInterval(clockTick, 1000);
+    }
+
     card.classList.add("face-up");
 
     if(faceUpCards.length < 2){
@@ -114,9 +119,8 @@ function flipCard(card){
             }
 
             if(document.getElementsByClassName("matched").length === 16){
-                window.setTimeout(function(){
-                    endGame();
-                }, 1000);
+                alert("matched!");
+                window.setTimeout(newGame, 1000);
             }            
         }, 1000);
        
@@ -127,23 +131,20 @@ function flipCard(card){
 
     function checkMatch(firstCard, secondCard) {
         return firstCard.children[0].classList[1] === secondCard.children[0].classList[1];
-    }
+    }    
+}//End flipCard
 
-    function endGame(){
-        alert("matched!");
-        moves = 0;
-        movesEl.textContent = "0";
+function newGame(){
+    moves = 0;
+    movesEl.textContent = "0";
 
-        /*
-        playing = false;
-        window.clearInterval(timer);
-        minEl.textContent = "0";
-        secEl.textContent = "00";*/
+    playing = false;
+    minEl.textContent = "0";
+    secEl.textContent = "00";
+    window.clearInterval(timer);
 
-
-        layOutCards();
-    }
-}
+    layOutCards();
+}//End newGame
 
 
 function clockTick() {
@@ -183,7 +184,5 @@ window.onload = function () {
 
    layOutCards();   
 
-    document.querySelector(".restart").onclick = function () {
-        layOutCards();
-    };
+    document.querySelector(".restart").onclick = layOutCards;
 };
