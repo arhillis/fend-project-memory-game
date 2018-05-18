@@ -2,6 +2,8 @@
  * Create a list that holds all of your cards
  */
 const deck = document.querySelector(".deck");
+const secEl = document.querySelector("#secs");
+const minEl = document.querySelector("#mins");
 const movesEl = document.querySelector(".moves");
 const cards = [
         "fa-diamond",
@@ -24,7 +26,7 @@ const cards = [
 
 let faceUpCards = [];
 
-let moves = 0;
+let moves = 0, secs = 0;
 
 /*
  * Display the cards on the page
@@ -41,31 +43,8 @@ let moves = 0;
 
 /*
 function newGame() {
-    let cardEls = document.querySelectorAll(".card");
-    const secEl = document.querySelector("#secs");
-    const minEl = document.querySelector("#mins");
-    let moves = 0,
-        playing = false;
-
-    let timer;
-
-   
-
-        function clockTick() {
-
-            let secs = parseInt(secEl.textContent);
-
-            if (secs === 59) {
-                secEl.textContent = "00";
-                let mins = parseInt(minEl.textContent);
-                increment(mins, minEl);
-            } else {
-                increment(secs, secEl);
-            }
-            
-        }
-    }
-
+    playing = false;
+    let timer;  
 
 */
 
@@ -75,8 +54,8 @@ function layOutCards(){
     cardHTML = ``;
     for (let card of cards) {
         cardHTML += ` <li class="card">
-                                <i class="fa ${card}"></i>
-                            </li>`;
+                            <i class="fa ${card}"></i>
+                        </li>`;
     }
     deck.innerHTML = cardHTML;
 
@@ -103,7 +82,11 @@ function layOutCards(){
         }
     
         return array;
-    }//end shuffle    
+    }//end shuffle   
+    
+    secs = 0;
+
+    let timer = setInterval(clockTick, 1000);
 
 }//End layOutCards
 
@@ -119,8 +102,7 @@ function flipCard(card){
     if(faceUpCards.length === 2){
         let firstCard = faceUpCards[0];
         let secondCard = faceUpCards[1];
-        faceUpCards = [];
-        
+        faceUpCards = [];        
 
         window.setTimeout(function(){
             if(checkMatch(firstCard, secondCard)){
@@ -141,7 +123,7 @@ function flipCard(card){
         moves++;
         movesEl.textContent = moves.toString();
         
-    }
+    }//End if(faceUpCards.length === 2)
 
     function checkMatch(firstCard, secondCard) {
         return firstCard.children[0].classList[1] === secondCard.children[0].classList[1];
@@ -161,13 +143,29 @@ function flipCard(card){
 
         layOutCards();
     }
-
 }
 
-function increment(num, element) {
-    num++;
-    element.textContent = (num < 10) ? "0" + num.toString() : num.toString();
-}
+
+function clockTick() {
+
+    let secs = parseInt(secEl.textContent);
+
+    if (secs === 59) {
+        secEl.textContent = "00";
+        let mins = parseInt(minEl.textContent);
+        increment(mins, minEl);
+    } else {
+        increment(secs, secEl);
+    }
+
+    function increment(num, element) {
+        num++;
+        element.textContent = (num < 10) ? "0" + num.toString() : num.toString();
+    }//End increment
+    
+}//End clockTick
+
+
 
 
 /*
@@ -183,13 +181,9 @@ function increment(num, element) {
 
 window.onload = function () {
 
-   layOutCards();
-  
-   
+   layOutCards();   
 
     document.querySelector(".restart").onclick = function () {
         layOutCards();
     };
-
-
 };
