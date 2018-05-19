@@ -116,8 +116,17 @@ h1 {
     cursor: pointer;
 }
 
+.stars{
+    background: #2e3d49;
+    height: 35px;
+}
+
 .fa-star {
     margin: 5px;
+}
+
+.fa-star.gold{
+    color: yellow;
 }
 
 .fa-repeat {
