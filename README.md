@@ -30,7 +30,7 @@ For specific, detailed instructions, look at the project instructions in the [Ud
 
     _"When the player starts a game, a displayed timer should also start. Once the player wins the game, the timer stops."_
 
-* Star rating (Personal Deadline: May 18)
+* Star rating (Personal Deadline: May 18 **Done!**)
 
     _"The game displays a star rating (from 1 to at least 3) that reflects the player's performance. At the beginning of a game, it should display at least 3 stars. After some number of moves, it should change to a lower star rating. After a few more moves, it should change to a even lower star rating (down to 1). __The number of moves needed to change the rating is up to you, but it should happen at some point.__"_
 
