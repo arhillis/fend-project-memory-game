@@ -125,7 +125,7 @@ function flipCard(card){
         moves++;
         movesEl.textContent = moves.toString();
 
-        if(moves % 16 === 0){
+        if(moves % 6 === 0 && moves >= 18){
             removeStar();
         }
         
@@ -144,6 +144,12 @@ function newGame(){
     minEl.textContent = "0";
     secEl.textContent = "00";
     window.clearInterval(timer);
+
+    const stars = document.querySelectorAll(".fa-star");
+
+    for(star of stars){
+        star.classList.add('gold');
+    }
 
     layOutCards();
 }//End newGame
