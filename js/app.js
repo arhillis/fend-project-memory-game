@@ -89,8 +89,6 @@ function layOutCards(){
 
 }//End layOutCards
 
-
-
 function flipCard(card){
 
     if(!playing){
@@ -126,6 +124,10 @@ function flipCard(card){
        
         moves++;
         movesEl.textContent = moves.toString();
+
+        if(moves % 16 === 0){
+            removeStar();
+        }
         
     }//End if(faceUpCards.length === 2)
 
@@ -166,6 +168,11 @@ function clockTick() {
     
 }//End clockTick
 
+function removeStar(){
+    const stars = document.querySelectorAll(".gold");
+    let lastStar = stars[stars.length - 1];
+    lastStar.classList.remove("gold");
+}
 
 
 
