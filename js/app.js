@@ -1,12 +1,12 @@
-/*
- * Create a list that holds all of your cards
- */
+
 const deck = document.querySelector(".deck");
 const secEl = document.querySelector("#secs");
 const minEl = document.querySelector("#mins");
 const movesEl = document.querySelector(".moves");
 const modal = document.querySelector(".modal");
-
+/*
+ * Create a list that holds all of your cards
+ */
 const cards = [
         "fa-diamond",
         "fa-paper-plane-o",
@@ -34,13 +34,9 @@ let moves = 0, mins = 0, secs = 0, playing = false, timer;
  * Display the cards on the page
  *   - shuffle the list of cards using the provided "shuffle" method below
  *   - loop through each card and create its HTML
- *   - add each card's HTML to the page
+ *   - add each card's HTML to the main HTML string
+ *   - set the deck's inner HTML to be the string
  */
-
-// Shuffle function from http://stackoverflow.com/a/2450976
-
-
-
 function layOutCards(){
     shuffle(cards);
 
@@ -56,12 +52,13 @@ function layOutCards(){
 
     cardEls.forEach(function(card){
         card.onclick = function(){
-            if(!this.classList.contains("matched")){//change back to 'face-up' later
+            if(!this.classList.contains("face-up")){//change back to 'face-up' later
                 flipCard(this);
             }
         }        
     })
     
+    // Shuffle function from http://stackoverflow.com/a/2450976
     function shuffle(array) {
         var currentIndex = array.length,
             temporaryValue, randomIndex;
@@ -75,18 +72,28 @@ function layOutCards(){
         }
     
         return array;
-    }//end shuffle   
-
-
+    }//end shuffle  
 }//End layOutCards
 
+/*
+* Flips a card over
+* - if a game is not currently in progress, it starts a game
+* - add the class 'face-up' to the card element
+* - if the array, faceUpCards has less than two cards in it,  pushes this card to the array
+* - if the array, faceUpCards has two cards in it:
+    - faceUpCards[0] and faceUpCards[1] get stored into variables, firstCard and secondC ard
+    - faceUpCards is emptied out
+    - after one second, checkMatch is called on firstCard and secondCard
+        - if they match:
+            - the class, 'matched' is added to both elements
+            
+*/
 function flipCard(card){
 
     if(!playing){
         playing = true;
         timer = setInterval(clockTick, 1000);
     }
-
     card.classList.add("face-up");
 
     if(faceUpCards.length < 2){
@@ -102,14 +109,15 @@ function flipCard(card){
             if(checkMatch(firstCard, secondCard)){
                 firstCard.classList.add("matched");
                 secondCard.classList.add("matched");
+                if(document.getElementsByClassName("matched").length === 16){
+                    showModal();
+                } 
             }else{
                 firstCard.classList.remove("face-up");
                 secondCard.classList.remove("face-up");
             }
 
-            if(document.getElementsByClassName("matched").length === 16){
-                showModal();
-            }            
+                       
         }, 1000);
        
         moves++;
