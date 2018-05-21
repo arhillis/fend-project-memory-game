@@ -145,7 +145,8 @@ h1 {
   .modal-content{
     display: flex;
     flex-direction: column;
-    width: 500px;
+    width: 90%;
+    max-width: 375px;
     height: 270px;
     background: #f2f3f4;
     color: #2e3d49;
