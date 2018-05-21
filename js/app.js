@@ -198,4 +198,12 @@ window.onload = function () {
    layOutCards();   
 
     document.querySelector(".restart").onclick = newGame;
+
+    document.getElementById("modal-btn").onclick = function(){
+        document.querySelector(".modal").classList.remove("modal-hidden");
+    };
+
+    document.querySelector(".close").onclick = function(){
+        document.querySelector(".modal").classList.add("modal-hidden");
+    };
 };
