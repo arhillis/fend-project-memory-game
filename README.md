@@ -53,5 +53,5 @@ This function takes the ```cards``` array and randomizes it with the given ``shu
 
 ## Issues
 
-* When the user finishes a game and it restarts, the cards do not shuffle. I am still having trouble fixing this.
+* When the user finishes a game and it restarts, the cards do not shuffle. I am still having trouble fixing this (Resolved May 18).
 
