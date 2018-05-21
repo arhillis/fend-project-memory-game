@@ -5,6 +5,8 @@ const deck = document.querySelector(".deck");
 const secEl = document.querySelector("#secs");
 const minEl = document.querySelector("#mins");
 const movesEl = document.querySelector(".moves");
+const modal = document.querySelector(".modal");
+
 const cards = [
         "fa-diamond",
         "fa-paper-plane-o",
@@ -26,7 +28,7 @@ const cards = [
 
 let faceUpCards = [];
 
-let moves = 0, secs = 0, playing = false, timer;
+let moves = 0, mins = 0, secs = 0, playing = false, timer;
 
 /*
  * Display the cards on the page
@@ -38,15 +40,6 @@ let moves = 0, secs = 0, playing = false, timer;
 // Shuffle function from http://stackoverflow.com/a/2450976
 
 
-
-
-
-/*
-function newGame() {
-    playing = false;
-    let timer;  
-
-*/
 
 function layOutCards(){
     shuffle(cards);
@@ -83,8 +76,6 @@ function layOutCards(){
     
         return array;
     }//end shuffle   
-    
-    
 
 
 }//End layOutCards
@@ -117,8 +108,7 @@ function flipCard(card){
             }
 
             if(document.getElementsByClassName("matched").length === 16){
-                alert("matched!");
-                window.setTimeout(newGame, 1000);
+                showModal();
             }            
         }, 1000);
        
@@ -135,6 +125,22 @@ function flipCard(card){
         return firstCard.children[0].classList[1] === secondCard.children[0].classList[1];
     }    
 }//End flipCard
+
+function showModal(){        
+    setContent("#mins-modal-span", mins);
+    document.querySelector(".secs-modal-span").textContent = secs.toString();
+    setContent(".rating-span", document.querySelectorAll(".gold").length);
+    setContent(".moves-span", moves);
+    modal.classList.remove("modal-hidden");
+    document.querySelector(".close").onclick = function(){
+        modal.classList.add("modal-hidden");
+        newGame();
+    };
+}
+
+function setContent(element, num){
+    document.querySelector(element).textContent = num.toString();
+}
 
 function newGame(){
     moves = 0;
@@ -156,20 +162,18 @@ function newGame(){
 
 
 function clockTick() {
-
-    let secs = parseInt(secEl.textContent);
-
     if (secs === 59) {
+        secs = 0;
         secEl.textContent = "00";
-        let mins = parseInt(minEl.textContent);
-        increment(mins, minEl);
+        mins = increment(mins, minEl);
     } else {
-        increment(secs, secEl);
+        secs = increment(secs, secEl);
     }
 
     function increment(num, element) {
         num++;
         element.textContent = (num < 10) ? "0" + num.toString() : num.toString();
+        return num;
     }//End increment
     
 }//End clockTick
@@ -195,15 +199,7 @@ function removeStar(){
 
 window.onload = function () {
 
-   layOutCards();   
+    layOutCards();   
 
     document.querySelector(".restart").onclick = newGame;
-
-    document.getElementById("modal-btn").onclick = function(){
-        document.querySelector(".modal").classList.remove("modal-hidden");
-    };
-
-    document.querySelector(".close").onclick = function(){
-        document.querySelector(".modal").classList.add("modal-hidden");
-    };
 };
