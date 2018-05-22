@@ -77,15 +77,11 @@ function layOutCards(){
 
 /*
 * Flips a card over
+* @pram {DOM ELement} card - represents a card in the deck
 * - if a game is not currently in progress, it starts a game
 * - add the class 'face-up' to the card element
 * - if the array, faceUpCards has less than two cards in it,  pushes this card to the array
-* - if the array, faceUpCards has two cards in it:
-    - faceUpCards[0] and faceUpCards[1] get stored into variables, firstCard and secondC ard
-    - faceUpCards is emptied out
-    - after one second, checkMatch is called on firstCard and secondCard
-        - if they match:
-            - the class, 'matched' is added to both elements
+* - if the array, faceUpCards has two cards in it, end the turn  
             
 */
 function flipCard(card){
@@ -101,6 +97,13 @@ function flipCard(card){
     }    
 
     if(faceUpCards.length === 2){
+        endTurn();
+    }  
+
+    /*
+    * Ends a turn
+    */
+    function endTurn(){
         let firstCard = faceUpCards[0];
         let secondCard = faceUpCards[1];
         faceUpCards = [];        
@@ -115,9 +118,7 @@ function flipCard(card){
             }else{
                 firstCard.classList.remove("face-up");
                 secondCard.classList.remove("face-up");
-            }
-
-                       
+            }                       
         }, 1000);
        
         moves++;
@@ -127,13 +128,23 @@ function flipCard(card){
             removeStar();
         }
         
-    }//End if(faceUpCards.length === 2)
+    }//End endTurn
 
+    /*
+    * Checks to see if two cards match by checking the second class in the class list of the first child
+    * @param {DOM element} firstCard - the first card that was flipped over
+    * @param {DOM element} secondCard - the second card that was flipped over
+    * @returns if cards match, return true, else return false
+    */
     function checkMatch(firstCard, secondCard) {
         return firstCard.children[0].classList[1] === secondCard.children[0].classList[1];
     }    
 }//End flipCard
 
+
+/*
+* Displays the modal 
+*/
 function showModal(){        
     setContent("#mins-modal-span", mins);
     document.querySelector(".secs-modal-span").textContent = secs.toString();
@@ -144,12 +155,21 @@ function showModal(){
         modal.classList.add("modal-hidden");
         newGame();
     };
-}
+}//End showModal
 
+/**
+ * Sets the textContent of the element to be the stringified num
+ * @param {DOM element} element 
+ * @param {number} num 
+ * 
+ */
 function setContent(element, num){
     document.querySelector(element).textContent = num.toString();
 }
 
+/**
+ * Starts a new game
+ */
 function newGame(){
     moves = 0;
     movesEl.textContent = "0";
@@ -161,14 +181,17 @@ function newGame(){
 
     const stars = document.querySelectorAll(".fa-star");
 
-    for(star of stars){
+    stars.forEach(function(star){
         star.classList.add('gold');
-    }
+    })
 
     layOutCards();
 }//End newGame
 
-
+/**
+ * Makes the clock advance one second
+ * @returns (number) the new value of the secs variable
+ */
 function clockTick() {
     if (secs === 59) {
         secs = 0;
@@ -186,13 +209,14 @@ function clockTick() {
     
 }//End clockTick
 
+/**
+ * Takes the last star and removes the class .gold
+ */
 function removeStar(){
     const stars = document.querySelectorAll(".gold");
     let lastStar = stars[stars.length - 1];
     lastStar.classList.remove("gold");
 }
-
-
 
 /*
  * set up the event listener for a card. If a card is clicked:
