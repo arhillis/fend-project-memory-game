@@ -145,7 +145,7 @@ function flipCard(card){
 /*
 * Displays the modal 
 */
-function showModal(){        
+function showModal(){      
     setContent("#mins-modal-span", mins);
     document.querySelector(".secs-modal-span").textContent = secs.toString();
     setContent(".rating-span", document.querySelectorAll(".gold").length);
@@ -172,12 +172,13 @@ function setContent(element, num){
  */
 function newGame(){
     moves = 0;
+    mins = 0;
+    secs = 0;
     movesEl.textContent = "0";
-
+    window.clearInterval(timer);  
     playing = false;
     minEl.textContent = "0";
     secEl.textContent = "00";
-    window.clearInterval(timer);
 
     const stars = document.querySelectorAll(".fa-star");
 
