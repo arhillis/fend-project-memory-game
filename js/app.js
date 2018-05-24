@@ -42,7 +42,7 @@ function layOutCards(){
 
     cardHTML = ``;
     for (let card of cards) {
-        cardHTML += ` <li class="card">
+        cardHTML += ` <li class="card animated">
                             <i class="fa ${card}"></i>
                         </li>`;
     }
@@ -88,6 +88,11 @@ function flipCard(card){
         timer = setInterval(clockTick, 1000);
     }
     card.classList.add("face-up");
+    card.classList.add("flip");
+
+    setTimeout(function(){
+        card.classList.remove("flip");
+    }, 100);
 
     if(faceUpCards.length < 2){
         faceUpCards.push(card);
@@ -115,6 +120,13 @@ function flipCard(card){
             }else{
                 firstCard.classList.remove("face-up");
                 secondCard.classList.remove("face-up");
+
+                firstCard.classList.add("flip");
+                secondCard.classList.add("flip");
+                setTimeout(function(){
+                    firstCard.classList.remove("flip");
+                    secondCard.classList.remove("flip");
+                }, 100);
             }                       
         }, 1000);
        
