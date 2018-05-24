@@ -7,7 +7,7 @@ const modal = document.querySelector(".modal");
 /*
  * Create a list that holds all of your cards
  */
-const cards = [
+let cards = [
         "fa-diamond",
         "fa-paper-plane-o",
         "fa-anchor",
@@ -38,7 +38,7 @@ let moves = 0, mins = 0, secs = 0, playing = false, timer;
  *   - set the deck's inner HTML to be the string
  */
 function layOutCards(){
-    shuffle(cards);
+    cards = shuffle(cards);
 
     cardHTML = ``;
     for (let card of cards) {
@@ -59,20 +59,17 @@ function layOutCards(){
     })
     
     // Shuffle function from http://stackoverflow.com/a/2450976
-    function shuffle(array) {
-        var currentIndex = array.length,
-            temporaryValue, randomIndex;
-    
-        while (currentIndex !== 0) {
-            randomIndex = Math.floor(Math.random() * currentIndex);
-            currentIndex -= 1;
-            temporaryValue = array[currentIndex];
-            array[currentIndex] = array[randomIndex];
-            array[randomIndex] = temporaryValue;
+
+    function shuffle(array){
+        let temp = [];
+      
+        while(array.length > 0){
+          let random = Math.floor(Math.random() * array.length);
+          temp.push(array.splice(random, 1)[0]);//Pulls a random element out of the original array and pushes it to the temp array
         }
-    
-        return array;
-    }//end shuffle  
+
+        return temp;
+    }//End shuffle
 }//End layOutCards
 
 /*
